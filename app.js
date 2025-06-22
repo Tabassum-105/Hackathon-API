@@ -31,12 +31,14 @@ const { connectToDb } = require('./db');
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+
 // GET all users
 app.get('/products', async (req, res) => {
   try {
     const db = await connectToDb();
     const users = await db.collection('Products').find().toArray();
-    console.log(users)
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch Products' });
