@@ -41,6 +41,7 @@ app.get('/products', async (req, res) => {
     const users = await db.collection('Products').find().toArray();
     res.json(users);
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: 'Failed to fetch Products' });
   }
 });
@@ -65,6 +66,18 @@ app.delete('/users/:id', async (req, res) => {
     res.json(result);
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete user' });
+  }
+});
+
+app.get('/shares-list', async (req, res) => {
+  try {
+    const db = await connectToDb();
+    const shares = await db.collection('share-list').find().toArray();
+    console.log(shares);
+    
+    res.json(shares);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch Products' });
   }
 });
 
